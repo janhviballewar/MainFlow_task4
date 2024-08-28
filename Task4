@@ -1,0 +1,137 @@
+/*Develop a calculator using JavaScript
+• Use html,Css for building frontend
+• Use JavaScript to develop all the arthmetic operations*/
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+        }
+
+        .calculator {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        #display {
+            width: 100%;
+            height: 50px;
+            font-size: 1.5em;
+            text-align: right;
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        button {
+            padding: 20px;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 5px;
+            background-color: #f2f2f2;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #ddd;
+        }
+
+        button:active {
+            background-color: #bbb;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="display" disabled>
+        <div class="buttons">
+            <!-- Row 1 -->
+            <button onclick="clearDisplay()">C</button>
+            <button onclick="deleteChar()">DEL</button>
+            <button onclick="appendOperator('/')">/</button>
+            <button onclick="appendOperator('*')">*</button>
+            
+            <!-- Row 2 -->
+            <button onclick="appendNumber(7)">7</button>
+            <button onclick="appendNumber(8)">8</button>
+            <button onclick="appendNumber(9)">9</button>
+            <button onclick="appendOperator('-')">-</button>
+
+            <!-- Row 3 -->
+            <button onclick="appendNumber(4)">4</button>
+            <button onclick="appendNumber(5)">5</button>
+            <button onclick="appendNumber(6)">6</button>
+            <button onclick="appendOperator('+')">+</button>
+
+            <!-- Row 4 -->
+            <button onclick="appendNumber(1)">1</button>
+            <button onclick="appendNumber(2)">2</button>
+            <button onclick="appendNumber(3)">3</button>
+            <button onclick="calculateResult()">=</button>
+
+            <!-- Row 5 -->
+            <button onclick="appendNumber(0)">0</button>
+            <button onclick="appendDecimal()">.</button>
+        </div>
+    </div>
+    <script>
+        const display = document.getElementById('display');
+
+        // Append numbers to the display
+        function appendNumber(number) {
+            display.value += number;
+        }
+
+        // Append operators to the display
+        function appendOperator(operator) {
+            display.value += ` ${operator} `;
+        }
+
+        // Append a decimal point
+        function appendDecimal() {
+            if (!display.value.includes('.')) {
+                display.value += '.';
+            }
+        }
+
+        // Clear the display
+        function clearDisplay() {
+            display.value = '';
+        }
+
+        // Delete the last character
+        function deleteChar() {
+            display.value = display.value.slice(0, -1);
+        }
+
+        // Calculate the result
+        function calculateResult() {
+            try {
+                display.value = eval(display.value.replace(/[^-()\d/*+.]/g, ''));
+            } catch {
+                display.value = "Error";
+            }
+        }
+    </script>
+</body>
+</html>
